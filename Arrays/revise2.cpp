@@ -44,6 +44,37 @@ vector<int> twoSum(vector<int>& arr,int target){
 
    return {-1,-1};
 }
+/*
+Two sum 1 based indexing index starts from 1 not 0 
+Example 1:
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+
+*/
+
+vector<int> twoSum(vector<int>& numbers, int target) {
+        int left=0;
+        int right=numbers.size()-1;
+
+        while(left<right){
+            int sum=numbers[left]+numbers[right];
+            if(sum==target){
+                return{left+1,right+1}; //if no +1 it would return [0,1] instead of [1,2]
+            }
+            else if(sum<target){
+                left++;
+            }
+            else{
+                right--;
+            }
+        }
+        return{-1,-1};
+        
+        
+    }
+
 
 //3 sum
 //Find all groups of 3 numbers such that their sum is 0
@@ -75,8 +106,8 @@ vector<int> twoSum(vector<int>& arr,int target){
                 j++;
                 k--;
 
-                while(j<k && nums[j]==nums[j-1]) j++; //ignores dublicates
-                while(j<k && nums[k]==nums[k+1]) k--; ////ignores dublicates
+                while(j<k && nums[j]==nums[j-1]) j++; //ignores duplicates
+                while(j<k && nums[k]==nums[k+1]) k--; ////ignores duplicates
 
 
             }
@@ -105,6 +136,43 @@ int maxprofit(vector<int>&prices){
     }
     return profit;
 }
+
+//scenario 2 
+/*
+
+Input: prices = [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+Total profit is 4 + 3 = 7.
+
+*/
+int maxProfit(vector<int>& prices) {
+
+        int profit = 0;
+
+
+        /*
+        
+        Check current day's price and previous day's price.
+
+         If current > previous:
+             add the difference to profit
+
+        Else:
+            ignore
+        
+        */
+
+        for(int i = 1; i < prices.size(); i++) {
+
+            if(prices[i] > prices[i-1]) {
+                profit += prices[i] - prices[i-1];
+            }
+        }
+
+        return profit;
+    }
 
 //Product of Array Except Self
 //Input: nums = [1,2,3,4]
